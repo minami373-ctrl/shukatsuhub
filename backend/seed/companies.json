@@ -1,0 +1,25 @@
+[
+  { "name": "アルファテック", "domain": "alphatech.co.jp", "tags": "成長環境,若手裁量,自社プロダクト", "is_watched": true, "stage": "面接", "job_type": "ソフトウェアエンジニア", "location": "東京", "remote_ok": true, "salary_min": 450, "holidays_per_year": 125 },
+  { "name": "ベータ社", "domain": "beta-inc.jp", "tags": "研修充実,安定基盤", "is_watched": true, "stage": "エントリー", "job_type": "ソフトウェアエンジニア", "location": "東京", "remote_ok": false, "salary_min": 400, "holidays_per_year": 120 },
+  { "name": "デルタ商事", "domain": "delta-corp.co.jp", "tags": "安定基盤,福利厚生", "is_watched": true, "stage": "面接", "job_type": "総合職", "location": "大阪", "remote_ok": false, "salary_min": 430, "holidays_per_year": 121 },
+  { "name": "ガンマ工業", "domain": "gamma-kogyo.jp", "tags": "研究開発,自社プロダクト", "is_watched": true, "stage": "面接", "job_type": "研究開発", "location": "愛知", "remote_ok": false, "salary_min": 420, "holidays_per_year": 128 },
+  { "name": "シータ電機", "domain": "theta-denki.co.jp", "tags": "研究開発,安定基盤", "is_watched": true, "stage": "書類選考", "job_type": "組込みエンジニア", "location": "神奈川", "remote_ok": false, "salary_min": 410, "holidays_per_year": 123 },
+  { "name": "イータ物流", "domain": "eta-logi.jp", "tags": "社会貢献,安定基盤", "is_watched": true, "stage": "書類選考", "job_type": "データエンジニア", "location": "千葉", "remote_ok": true, "salary_min": 380, "holidays_per_year": 118 },
+  { "name": "カッパシステムズ", "domain": "kappa-systems.jp", "tags": "成長環境,リモート中心,自社プロダクト", "is_watched": true, "stage": "最終・内定", "job_type": "ソフトウェアエンジニア", "location": "東京", "remote_ok": true, "salary_min": 470, "holidays_per_year": 125 },
+  { "name": "イプシロン技研", "domain": "epsilon-giken.jp", "tags": "研究開発,成長環境", "is_watched": false, "stage": "気になる", "job_type": "研究開発", "location": "東京", "remote_ok": true, "salary_min": 440, "holidays_per_year": 126 },
+  { "name": "ゼータネットワークス", "domain": "zeta-networks.jp", "tags": "若手裁量,リモート中心", "is_watched": false, "stage": "気になる", "job_type": "インフラエンジニア", "location": "東京", "remote_ok": true, "salary_min": 400, "holidays_per_year": 122 },
+  { "name": "ラムダソフト", "domain": "lambda-soft.jp", "tags": "成長環境,若手裁量,リモート中心", "is_watched": false, "stage": "気になる", "job_type": "ソフトウェアエンジニア", "location": "福岡", "remote_ok": true, "salary_min": 460, "holidays_per_year": 130 },
+  { "name": "オミクロン解析", "domain": "omicron-analytics.jp", "tags": "研究開発,成長環境", "is_watched": false, "stage": "気になる", "job_type": "データサイエンティスト", "location": "東京", "remote_ok": true, "salary_min": 480, "holidays_per_year": 124 },
+  { "name": "ミュー精機", "domain": "mu-seiki.jp", "tags": "安定基盤,福利厚生", "is_watched": false, "stage": "気になる", "job_type": "機械設計", "location": "静岡", "remote_ok": false },
+  { "name": "ニュー通信", "domain": "nu-tsushin.jp", "tags": "社会貢献,安定基盤", "is_watched": false, "stage": "気になる", "job_type": "インフラエンジニア", "location": "東京", "remote_ok": false, "salary_min": 420, "holidays_per_year": 127 },
+  { "name": "クサイ医療システム", "domain": "xi-medical.jp", "tags": "社会貢献,研究開発", "is_watched": false, "stage": "気になる", "job_type": "ソフトウェアエンジニア", "location": "神奈川", "remote_ok": true, "salary_min": 440, "holidays_per_year": 125 },
+  { "name": "パイ食品", "domain": "pi-foods.jp", "tags": "福利厚生,安定基盤", "is_watched": false, "stage": "気になる", "job_type": "総合職", "location": "大阪", "remote_ok": false },
+  { "name": "ロー保険", "domain": "rho-insurance.jp", "tags": "研修充実,福利厚生", "is_watched": false, "stage": "気になる", "job_type": "総合職", "location": "東京", "remote_ok": true, "salary_min": 410, "holidays_per_year": 120 },
+  {
+    "name": "イオタテック株式会社",
+    "domain": "iota-tech.jp",
+    "tags": "IT,OSS,クラウド",
+    "is_watched": true,
+    "stage": "面接"
+  }
+]

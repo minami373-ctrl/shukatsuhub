@@ -1,0 +1,66 @@
+[
+  {
+    "external_id": "seminar-2026-07-27",
+    "title": "研究室ゼミ",
+    "kind": "学業",
+    "start_at": "2026-07-27T10:30:00",
+    "end_at": "2026-07-27T12:00:00",
+    "location": "B棟 402"
+  },
+  {
+    "external_id": "seminar-2026-07-30",
+    "title": "研究室ゼミ",
+    "kind": "学業",
+    "start_at": "2026-07-30T10:30:00",
+    "end_at": "2026-07-30T12:00:00",
+    "location": "B棟 402"
+  },
+  {
+    "external_id": "delta-casual-2026-07-30",
+    "title": "デルタ商事 カジュアル面談",
+    "kind": "選考",
+    "start_at": "2026-07-30T11:00:00",
+    "end_at": "2026-07-30T12:00:00",
+    "location": "オンライン"
+  },
+  {
+    "external_id": "alphatech-interview-1st",
+    "title": "アルファテック 一次面接",
+    "kind": "選考",
+    "start_at": "2026-07-30T15:00:00",
+    "end_at": "2026-07-30T16:00:00",
+    "location": "オンライン・Zoom"
+  },
+  {
+    "external_id": "report-2026-07-30",
+    "title": "課題レポート作成",
+    "kind": "学業",
+    "start_at": "2026-07-30T18:00:00",
+    "end_at": "2026-07-30T20:00:00",
+    "location": "自宅"
+  },
+  {
+    "external_id": "beta-briefing",
+    "title": "ベータ社 説明会",
+    "kind": "選考",
+    "start_at": "2026-07-31T10:00:00",
+    "end_at": "2026-07-31T11:30:00",
+    "location": "オンライン"
+  },
+  {
+    "external_id": "gamma-interview-2nd",
+    "title": "ガンマ工業 二次面接",
+    "kind": "選考",
+    "start_at": "2026-08-03T14:00:00",
+    "end_at": "2026-08-03T15:00:00",
+    "location": "本社ビル 7F"
+  },
+  {
+    "external_id": "report-2026-08-02",
+    "title": "課題レポート作成",
+    "kind": "学業",
+    "start_at": "2026-08-02T13:00:00",
+    "end_at": "2026-08-02T17:00:00",
+    "location": "自宅"
+  }
+]

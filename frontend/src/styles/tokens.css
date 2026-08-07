@@ -1,0 +1,19 @@
+/* デザイントークン（03-today-focus/index.html の :root をそのまま移植）
+   値をここ以外で直書きしない（CLAUDE.md C-5）。 */
+
+:root {
+  --brand: #0f9d8f;
+  --brand-weak: #e3f6f3;
+  --bg: #fbfbf9;
+  --panel: #fff;
+  --ink: #1d2521;
+  --sub: #6f7a75;
+  --line: #e6e9e7;
+  --warn: #e08c00;
+  --danger: #d92d3f;
+  --r: 12px;
+
+  /* 学業・完了済みの予定（就活＝--brand と必ず区別する） */
+  --cls: #9aa5a1;
+  --cls-bg: #f2f4f3;
+}

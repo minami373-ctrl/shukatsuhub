@@ -1,0 +1,114 @@
+[
+  {
+    "account": "gmail",
+    "from_address": "hr@alphatech.co.jp",
+    "from_name": "アルファテック 採用担当",
+    "subject": "一次面接 日程調整のご連絡",
+    "body": "(ダミー本文) 下記日程のいずれかでご都合はいかがでしょうか。",
+    "received_at": "2026-07-30T14:20:00"
+  },
+  {
+    "account": "gmail",
+    "from_address": "info@alphatech.co.jp",
+    "from_name": "アルファテック 採用担当",
+    "subject": "エントリーシート提出のお願い（本日23:59締切）",
+    "body": "(ダミー本文) ES提出期限が本日中となっております。",
+    "received_at": "2026-07-30T09:00:00"
+  },
+  {
+    "account": "gmail",
+    "from_address": "info@beta-inc.jp",
+    "from_name": "ベータ社 採用担当",
+    "subject": "ES提出期限のリマインド",
+    "body": "(ダミー本文) ES提出期限が近づいております。",
+    "received_at": "2026-07-30T11:05:00"
+  },
+  {
+    "account": "gmail",
+    "from_address": "seminar@beta-inc.jp",
+    "from_name": "ベータ社",
+    "subject": "会社説明会のご案内（8/31開催）",
+    "body": "(ダミー本文) 会社説明会を開催いたします。",
+    "received_at": "2026-07-29T10:00:00"
+  },
+  {
+    "account": "icloud",
+    "from_address": "info@delta-corp.co.jp",
+    "from_name": "デルタ商事 人事部",
+    "subject": "一次面接 日程候補のご連絡",
+    "body": "(ダミー本文) 候補日を3つご提示いたします。",
+    "received_at": "2026-07-29T16:00:00"
+  },
+  {
+    "account": "icloud",
+    "from_address": "info@delta-corp.co.jp",
+    "from_name": "デルタ商事 人事部",
+    "subject": "Re: 一次面接 日程候補のご連絡",
+    "body": "(ダミー本文) ご返信をお待ちしております。",
+    "received_at": "2026-07-30T09:30:00"
+  },
+  {
+    "account": "icloud",
+    "from_address": "jinji@gamma-kogyo.jp",
+    "from_name": "ガンマ工業 人事",
+    "subject": "二次面接のご案内",
+    "body": "(ダミー本文) 二次面接の詳細をご案内いたします。",
+    "received_at": "2026-07-28T13:00:00"
+  },
+  {
+    "account": "gmail",
+    "from_address": "saiyo@sigma-denshi.jp",
+    "from_name": "シグマ電子 採用担当",
+    "subject": "一次面接 日程調整のご連絡",
+    "body": "(ダミー本文) 面接日程のご相談です。",
+    "received_at": "2026-07-30T08:40:00"
+  },
+  {
+    "account": "gmail",
+    "from_address": "info@sigma-denshi.jp",
+    "from_name": "シグマ電子 採用担当",
+    "subject": "エントリーシート提出のお願い",
+    "body": "(ダミー本文) ESの提出をお願いいたします。",
+    "received_at": "2026-07-28T15:30:00"
+  },
+  {
+    "account": "icloud",
+    "from_address": "recruit@omega-shoji.co.jp",
+    "from_name": "オメガ商事 採用チーム",
+    "subject": "会社説明会のご案内（8/5開催）",
+    "body": "(ダミー本文) 会社説明会を開催いたします。",
+    "received_at": "2026-07-27T12:00:00"
+  },
+  {
+    "account": "gmail",
+    "from_address": "scout@jobscout-example.jp",
+    "from_name": "就活エージェント",
+    "subject": "あなたへのおすすめ求人のご案内",
+    "body": "(ダミー本文) 条件に合う求人をご紹介します。",
+    "received_at": "2026-07-29T08:00:00"
+  },
+  {
+    "account": "gmail",
+    "from_address": "news@mailmaga-example.com",
+    "from_name": "就活ニュース",
+    "subject": "メルマガ：今週の就活イベント",
+    "body": "(ダミー本文) 今週開催のイベント情報をお届けします。",
+    "received_at": "2026-07-28T07:00:00"
+  },
+  {
+    "account": "gmail",
+    "from_address": "info@example.com",
+    "from_name": "選考事務局",
+    "subject": "いつもお世話になっております",
+    "body": "(ダミー本文) 平素よりお世話になっております。",
+    "received_at": "2026-07-30T10:15:00"
+  },
+  {
+    "account": "icloud",
+    "from_address": "info@delta-corp.co.jp",
+    "from_name": "デルタ商事 人事部",
+    "subject": "来週お会いできますでしょうか",
+    "body": "(ダミー本文) お忙しいところ恐れ入ります。来週、少しお時間をいただけますでしょうか。",
+    "received_at": "2026-07-30T13:00:00"
+  }
+]

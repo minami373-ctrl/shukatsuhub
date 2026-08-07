@@ -1,0 +1,1436 @@
+/* カード・ヒーロー・カレンダー・受信箱。03-today-focus/index.html のクラス語彙を移植。
+   新しいクラスは既存語彙で表現できない場合のみ追加する（CLAUDE.md C）。 */
+
+.content {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 12px 18px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 10px;
+  overflow: hidden;
+}
+
+/* --- ヒーロー（全画面に必ず置く）--- */
+.hero {
+  background: linear-gradient(135deg, #0f9d8f, #13b8a5);
+  color: #fff;
+  border-radius: 15px;
+  padding: 13px 18px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.hero .lead {
+  flex: 1;
+  min-width: 210px;
+}
+
+.hero .d {
+  font-size: 10.5px;
+  opacity: 0.85;
+}
+
+.hero .d a {
+  text-decoration: underline;
+}
+
+.hero h1 {
+  margin: 1px 0 0;
+  font-size: 17px;
+}
+
+.hero .sum {
+  display: flex;
+  gap: 18px;
+}
+
+.hero .sum div span {
+  display: block;
+  font-size: 10px;
+  opacity: 0.85;
+}
+
+.hero .sum div b {
+  font-size: 17px;
+}
+
+/* --- カード --- */
+.two {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.card > h2 {
+  margin: 0;
+  padding: 8px 13px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.card > h2 .more {
+  margin-left: auto;
+  font-size: 10.5px;
+  color: var(--brand);
+  font-weight: 600;
+}
+
+.body {
+  padding: 2px 13px 8px;
+  overflow: hidden;
+}
+
+.co {
+  font-size: 10px;
+  color: var(--sub);
+}
+
+/* タスク・メール行など、チェック/タグ付きの1行リスト（Today・受信箱で共有） */
+.task {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--line);
+  cursor: default;
+}
+
+.task:last-of-type {
+  border-bottom: 0;
+}
+
+.task .chk {
+  width: 15px;
+  height: 15px;
+  border: 1.6px solid #c4cec9;
+  border-radius: 5px;
+  flex: none;
+}
+
+.task.done .chk {
+  background: var(--brand);
+  border-color: var(--brand);
+}
+
+/* 完了は打ち消し線＋グレー（03-today-focus/index.html の .task.done .t と同じ）。
+   行を末尾に動かさず、その場でこの見た目にして「片付けた」ことを表す */
+.task.done .t {
+  text-decoration: line-through;
+  color: var(--sub);
+}
+
+.task .t {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tag {
+  font-size: 9.5px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--brand-weak);
+  color: #0b7a6f;
+  font-weight: 700;
+  white-space: nowrap;
+  flex: none;
+}
+
+.tag.d {
+  background: #fde3e6;
+  color: #9f1239;
+}
+
+.tag.w {
+  background: #fdf0d5;
+  color: #8a5a00;
+}
+
+.tag.cls {
+  background: var(--cls-bg);
+  color: #55605c;
+}
+
+/* AI が判定したメールの小バッジ（受信箱） */
+.tag.ai {
+  background: #eceeed;
+  color: var(--sub);
+}
+
+/* 主要アクション（1画面に1つだけ）*/
+.primary {
+  background: var(--brand);
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primary:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* 表示切替（月／週）。主要アクションではないので枠線だけ */
+.seg {
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.seg button {
+  background: none;
+  border: 0;
+  padding: 3px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  color: var(--sub);
+}
+
+.seg button.on {
+  background: var(--brand-weak);
+  color: var(--brand);
+  font-weight: 700;
+}
+
+/* 受信箱：カテゴリのフィルタチップ（.seg とは見た目の意図が異なるため別クラス） */
+.chips {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.chips button {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 999px;
+  padding: 4px 13px;
+  font-size: 11.5px;
+  color: var(--sub);
+  cursor: pointer;
+  white-space: nowrap;
+  flex: none;
+}
+
+.chips button.on {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+  font-weight: 700;
+}
+
+/* 受信箱：メール一覧の行 */
+.mail-group {
+  cursor: pointer;
+}
+
+.mail-group .acct {
+  font-size: 9px;
+  color: var(--sub);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0 4px;
+  flex: none;
+}
+
+.mail-group .cnt {
+  font-size: 9.5px;
+  color: var(--sub);
+  flex: none;
+}
+
+.thread {
+  border-top: 1px dashed var(--line);
+  padding: 6px 0 6px 25px;
+  margin-top: 2px;
+  display: grid;
+  gap: 6px;
+}
+
+.thread .mail {
+  font-size: 11.5px;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 受信箱：分類ロジック（読み取り専用） */
+.rule-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 11.5px;
+}
+
+.rule-row:last-of-type {
+  border-bottom: 0;
+}
+
+.rule-row .domain {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.empty {
+  color: var(--sub);
+  font-size: 12px;
+  padding: 10px 0;
+}
+
+/* 同期結果の通知（既存語彙で表現できないため追加）*/
+.toast {
+  font-size: 10.5px;
+  color: var(--sub);
+  padding: 4px 13px 0;
+}
+
+.toast.err {
+  color: var(--danger);
+}
+
+/* 凡例 */
+.legend {
+  display: flex;
+  gap: 12px;
+  font-size: 10px;
+  color: var(--sub);
+  padding: 6px 13px 0;
+}
+
+.legend i {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  margin-right: 4px;
+  vertical-align: -1px;
+}
+
+.legend .senko i {
+  background: var(--brand);
+}
+
+.legend .gakugyo i {
+  background: var(--cls);
+}
+
+/* --- カレンダー（FullCalendar の見た目をトークンに合わせる）--- */
+.cal-card {
+  grid-column: 1 / -1;
+}
+
+.cal-body {
+  flex: 1;
+  min-height: 0;
+  padding: 6px 13px 10px;
+}
+
+.cal-body .fc {
+  height: 100%;
+  font-size: 11px;
+}
+
+.cal-body .fc .fc-toolbar-title {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.cal-body .fc .fc-button {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 11px;
+  padding: 2px 8px;
+  box-shadow: none;
+}
+
+.cal-body .fc .fc-button:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+.cal-body .fc-theme-standard td,
+.cal-body .fc-theme-standard th,
+.cal-body .fc-theme-standard .fc-scrollgrid {
+  border-color: var(--line);
+}
+
+/* 就活＝ティール／学業＝グレー（必ず色で区別する）*/
+.cal-body .ev-senko {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+  --fc-event-text-color: #fff;
+}
+
+.cal-body .ev-gakugyo {
+  background: var(--cls-bg);
+  border-color: var(--cls);
+  color: #414b47;
+  --fc-event-text-color: #414b47;
+}
+
+/* FullCalendar は予定名と時刻を内側の要素（.fc-event-main）に描画し、
+   その色を --fc-event-text-color（既定は白）で決める。
+   そのため外側の color だけでは効かず、グレー背景の学業が白文字になって読めなかった。
+   公式の変数と内側の要素の両方を指定して確実に上書きする。 */
+.cal-body .ev-gakugyo .fc-event-main,
+.cal-body .ev-gakugyo .fc-event-title,
+.cal-body .ev-gakugyo .fc-event-time {
+  color: #414b47;
+}
+
+.cal-body .ev-senko .fc-event-main,
+.cal-body .ev-senko .fc-event-title,
+.cal-body .ev-senko .fc-event-time {
+  color: #fff;
+}
+
+/* 予定名のはみ出し対策。週表示の列幅は狭く、長い予定名が枠から溢れていた。
+   時刻と予定名を縦2段にし、予定名は2行で省略する（全文は詳細モーダルで見る）*/
+.cal-body .fc-event,
+.cal-body .fc-event-main {
+  overflow: hidden;
+}
+
+.cal-body .fc-event {
+  cursor: pointer;
+}
+
+.cal-body .cal-ev {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  overflow: hidden;
+  padding: 1px 2px;
+  line-height: 1.25;
+}
+
+.cal-body .cal-ev-time {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cal-body .cal-ev-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+/* 月表示は1日1行しかないので横並び・1行に切り替える */
+.cal-body .fc-daygrid-event .cal-ev {
+  flex-direction: row;
+  gap: 4px;
+  align-items: baseline;
+}
+
+.cal-body .fc-daygrid-event .cal-ev-title {
+  -webkit-line-clamp: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* dayMaxEvents の「+N件」ポップオーバーもトークンの色に合わせる */
+.cal-body .fc .fc-popover {
+  background: var(--panel);
+  border-color: var(--line);
+  font-size: 11px;
+}
+
+.cal-body .fc .fc-popover-header {
+  background: var(--cls-bg);
+  color: var(--ink);
+}
+
+/* --- スマホ（指標を2つに、2カラムを1カラムに）--- */
+@media (max-width: 760px) {
+  .content {
+    padding: 9px 11px;
+    gap: 8px;
+  }
+
+  .hero {
+    padding: 10px 13px;
+    gap: 10px;
+  }
+
+  .hero h1 {
+    font-size: 14px;
+  }
+
+  .hero .sum {
+    gap: 13px;
+  }
+
+  .hero .sum div b {
+    font-size: 15px;
+  }
+
+  .hero .sum div:nth-child(n + 3) {
+    display: none;
+  }
+
+  .two {
+    grid-template-columns: 1fr;
+  }
+
+  .task:nth-of-type(n + 4) {
+    display: none;
+  }
+
+  .cal-body .fc {
+    font-size: 10px;
+  }
+}
+
+
+/* ===== プロフィール・自己分析 /profile（spec.md §4.4。job-dashboard から移植） ===== */
+
+.col {
+  display: grid;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.tag.g {
+  background: var(--muted-weak);
+  color: var(--sub);
+}
+
+.plus {
+  display: block;
+  font-size: 10.5px;
+  color: var(--brand);
+  font-weight: 600;
+  padding-top: 4px;
+}
+
+/* 主要アクション（1画面に1つだけ） */
+.act {
+  background: #fff;
+  color: var(--brand);
+  border: 0;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  flex: none;
+}
+
+.act:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* 行アクション（コピーボタン） */
+.mini {
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1px 7px;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--sub);
+  cursor: pointer;
+  font-family: inherit;
+  flex: none;
+}
+
+.mini:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+.mini.done {
+  border-color: var(--brand);
+  background: var(--brand-weak);
+  color: #0b7a6f;
+}
+
+/* 9項目のカードを 3列 × 3行 に収める（ページスクロールを出さないため）。
+   横幅いっぱいを使い、入力欄をできるだけ広く取る */
+.fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  overflow: hidden;
+}
+
+/* 見出しに 項目名・未入力タグ・コピー・文字数 を1行で収める */
+.fields .card > h2 {
+  padding: 5px 10px;
+  gap: 6px;
+}
+
+.fields .card > h2 .lb {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fields .card > h2 .co {
+  flex: none;
+}
+
+/* .card は flex 列。flex:1 を付けないと body が内容高さのままになり、
+   .ta の height:100% が効かず入力欄がカード下端まで伸びない */
+.fields .body {
+  flex: 1;
+  min-height: 0;
+  padding: 5px 10px 7px;
+  display: grid;
+  overflow: hidden;
+}
+
+/* 入力欄はカードの残り高さいっぱい。枠を描かず、カードの内側をそのまま書く面にする */
+.ta {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+/* .ta は枠も outline も持たないので、編集中の位置はカードの枠で示す */
+.fields .card:focus-within {
+  border-color: var(--brand);
+}
+
+.ta::placeholder {
+  color: var(--muted);
+}
+
+/* 充実度はヒーローの指標の直下（円グラフにしない・ライブラリを足さない） */
+.hero .hbar {
+  height: 4px;
+  border-radius: 3px;
+  background: #ffffff59;
+  overflow: hidden;
+  margin-top: 3px;
+}
+
+.hero .hbar > i {
+  display: block;
+  height: 100%;
+  background: #fff;
+}
+
+/* ヒーロー内の状態表示（保存しました・エラー）。地がティールなので白文字で出す */
+.hero .hs {
+  font-size: 10.5px;
+  min-height: 14px;
+  opacity: 0.9;
+}
+
+/* プロフィールの項目切替チップは、PC では9項目すべてが並ぶので不要。
+   スマホ（1項目ずつ編集する）でだけ表示する。
+   受信箱のフィルタチップは PC でも使うため、同じ .chips を共有できない。 */
+.chips.field-chips {
+  display: none;
+}
+
+/* ===== 今日（ホーム）/ （spec.md §4.1。03-today-focus/index.html の語彙を流用） ===== */
+
+/* 左カラムを「今日やること」と「今日返すべきメール」の2枚に割る。
+   .col 自体はプロフィールと共有しているので、行の割り方だけここで足す */
+.col.split {
+  grid-template-rows: 1.35fr 1fr;
+}
+
+/* チェックボックスは押せる必要があるので button。見た目は index.html の .chk のまま */
+button.chk {
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button.chk:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+/* 締切を過ぎているのに未完了。完了（打ち消し線＋グレー）より手前で気付かせる。
+   .task.done より前に置いて、完了したら黄色を打ち消せるようにする */
+.task.over .t {
+  color: var(--warn);
+}
+
+.task.over .t .co {
+  color: var(--warn);
+  opacity: 0.85;
+}
+
+/* 時刻を左に出す縦のタイムライン */
+.tl {
+  padding-left: 44px;
+  position: relative;
+}
+
+.slot {
+  position: relative;
+  padding: 5px 0;
+}
+
+.hh {
+  position: absolute;
+  left: -44px;
+  top: 7px;
+  font-size: 10.5px;
+  color: var(--sub);
+  font-weight: 700;
+  width: 38px;
+}
+
+/* 就活の予定＝ティール */
+.ev {
+  border-left: 3px solid var(--brand);
+  background: var(--brand-weak);
+  border-radius: 0 6px 6px 0;
+  padding: 4px 9px;
+  font-size: 11.5px;
+}
+
+/* 学業の予定＝グレー（就活と必ず色で区別する。spec.md §4.0） */
+.ev.cls {
+  border-color: var(--cls);
+  background: var(--cls-bg);
+}
+
+/* 研究にあてられる区間。研究は大学院に居る 10:00〜17:00 でしかできないので、
+   予定にも就活の空きにも見えないよう、枠線だけの控えめな見た目にする */
+.ev.study {
+  border-color: var(--brand);
+  border-left-style: dashed;
+  background: none;
+  color: var(--brand);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+/* 空きスロット＝斜線背景。ここに次のタスクを差し込んで見せる */
+.ev.free {
+  border-color: transparent;
+  color: var(--sub);
+  font-size: 10.5px;
+  background: repeating-linear-gradient(
+    45deg,
+    #fafbfa,
+    #fafbfa 6px,
+    var(--cls-bg) 6px,
+    var(--cls-bg) 12px
+  );
+}
+
+/* 件数だけを出す見出し右のラベル（遷移しないので a にしない） */
+.card > h2 .more.co {
+  color: var(--sub);
+  font-weight: 400;
+}
+
+/* 一覧を件数で切らず、カードの中だけをスクロールさせて全件たどれるようにする。
+   ページ側は .page{height:100dvh} ＋ overflow:hidden のままなので、
+   ブラウザのスクロールバーは出ない（1画面完結は保つ）。 */
+.body.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  /* カードの端まで内容が来ると切れて見えるので、スクロールバーぶんだけ余白を足す */
+  padding-right: 8px;
+  /* 端まで送ったときに背後のページが動かないようにする */
+  overscroll-behavior: contain;
+}
+
+.body.scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.body.scroll::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 3px;
+}
+
+.body.scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--cls);
+}
+
+@media (max-width: 760px) {
+  .chips.field-chips {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  /* 今日画面はスマホでもカードを隠さず、それぞれの中をスクロールして全件たどれるようにする。
+     一覧を 3 件で切る既定（.task:nth-of-type(n+4)）はここでは打ち消す。 */
+  .body.scroll .task:nth-of-type(n + 4) {
+    display: flex;
+  }
+
+  /* 1カラムに畳んだあとの高さを行で決める。auto にすると中身の量で画面からはみ出す */
+  .two.today {
+    grid-template-rows: 1.2fr 1fr;
+  }
+
+  /* スマホは1項目ずつ編集する。スクロールを足さず、チップで全項目に到達できるようにする */
+  .fields {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .fields .card {
+    display: none;
+  }
+
+  .fields .card.sel {
+    display: flex;
+  }
+}
+
+/* --- 通知①：重要メール検知バナー（docs/spec.md §5.8①）--- */
+.mail-alert {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 18px 8px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #fde3e6;
+  color: #9f1239;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .mail-alert {
+    margin: 0 11px 8px;
+    font-size: 11.5px;
+  }
+}
+
+/* ===== 想定問答 /qa（spec.md §4.5。既存語彙で表現できない分だけ追加） ===== */
+
+/* .content の grid は2行（ヒーロー＋本体）。企業セレクトの行を .content に直接足すと
+   3行目が auto で伸びて 100dvh に収まらなくなるので、セレクト行と .two をこの1枚に入れる */
+.qa-main {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 10px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.qa-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.qa-bar select {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--ink);
+  padding: 4px 8px;
+  font-size: 11.5px;
+  font-family: inherit;
+}
+
+/* 生成元（AI生成 / テンプレ）を見出しの右端に出す（§4.5。取り違え防止） */
+.card > h2 .src {
+  margin-left: auto;
+}
+
+/* いま回答骨子を出している行。負のマージンで文字位置を動かさずに地を敷く。
+   複数行に伸びたときタグが中央に浮かないよう、この行だけ上揃えにする */
+.task.sel {
+  background: var(--brand-weak);
+  border-radius: 6px;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin: 0 -6px;
+  align-items: flex-start;
+}
+
+/* 選択中の行だけ質問文を折り返して全文を見せる（他の行は .task .t の1行＋… のまま）。
+   一覧の密度を保ちつつ、読みたい質問は必ず全文読めるようにするため。
+   全行に付けた title 属性でも PC のホバーで全文が出る（Calendar.tsx の .cal-ev と同じ手） */
+.task.sel .t {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  /* 長い英数字（URL など）で横に溢れないようにする（.cal-ev-title と同じ指定） */
+  word-break: break-word;
+}
+
+/* 質問文は押すと右の骨子が差し替わるボタン。見た目は .task .t のまま */
+.qa-q {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* 回答骨子は自分で書き直せるようにする（§4.5）。入力欄は .ta を流用し、
+   カードいっぱいに広げる（本文だけがスクロールする） */
+.qa-answer-input {
+  min-height: 100%;
+  line-height: 1.6;
+}
+
+/* 準備率のバーと保存ボタンはカード下端に置き、本文（.body.scroll）だけがスクロールする */
+.qa-foot {
+  padding: 6px 13px 8px;
+  border-top: 1px solid var(--line);
+  flex: none;
+}
+
+.qa-foot-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 回答の保存。主要アクション（＝想定問答を生成）は1画面に1つのままにしたいので、
+   塗りではなく枠線だけの見た目にする（案03のルール） */
+.qa-save {
+  margin-left: auto;
+  background: none;
+  border: 1px solid var(--brand);
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--brand);
+  cursor: pointer;
+  font-family: inherit;
+  flex: none;
+}
+
+.qa-save:disabled {
+  border-color: var(--line);
+  color: var(--sub);
+  cursor: default;
+}
+
+/* 充実度（ヒーロー）と同じ自前バー。カードの上では地が白なのでティールで塗る */
+.card .hbar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--cls-bg);
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.card .hbar > i {
+  display: block;
+  height: 100%;
+  background: var(--brand);
+}
+
+@media (max-width: 760px) {
+  /* .two は共通ルールで1カラムになる。想定質問を上・回答骨子を下にし、高さを行で決める
+     （auto にすると中身の量で画面からはみ出す） */
+  .qa-main .two {
+    grid-template-rows: 1.1fr 1fr;
+  }
+}
+
+/* ===== タスク・締め切り（/tasks。03-today-focus/FEATURE_PAGE_SPECS.md §6） ===== */
+
+/* 絞り込み（今日 / 今週 / すべて / 完了）はカード見出しの右端に置く。
+   .content が2行グリッド（ヒーロー ＋ 本体）で固定されているため、
+   行を増やさずに済ませて1画面完結を保つ。既存の .seg をそのまま流用する */
+.card > h2 .seg {
+  margin-left: auto;
+}
+
+/* 行の操作（変更・削除）。主要アクションではないので .mini を並べるだけ。
+   タグの後ろに置くので、幅が足りないときに先に縮むのはタイトル側（.task .t）になる */
+.row-act {
+  display: flex;
+  gap: 4px;
+  flex: none;
+}
+
+/* 追加・変更フォーム。ネイティブの <dialog> を使い、ページの行を増やさずに出す
+   （.content は2行グリッドで固定。1画面完結を崩さないため） */
+.dlg {
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--panel);
+  color: var(--ink);
+  padding: 0;
+  width: min(360px, calc(100vw - 32px));
+}
+
+.dlg::backdrop {
+  background: rgb(29 37 33 / 45%);
+}
+
+.dlg form {
+  display: grid;
+  gap: 9px;
+  padding: 13px;
+}
+
+.dlg h2 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.dlg label {
+  display: grid;
+  gap: 3px;
+  font-size: 11px;
+  color: var(--sub);
+  font-weight: 700;
+}
+
+.dlg input,
+.dlg select {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 6px 8px;
+  font-size: 12.5px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--panel);
+}
+
+.dlg input:focus,
+.dlg select:focus {
+  outline: 2px solid var(--brand-weak);
+  border-color: var(--brand);
+}
+
+.dlg-act {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+/* 読み取り専用の項目表示（予定の詳細）。入力欄が無いので .dlg label は使えない */
+.dlg-def {
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.dlg-def dt {
+  font-size: 11px;
+  color: var(--sub);
+  font-weight: 700;
+}
+
+.dlg-def dd {
+  margin: 0 0 3px;
+  font-size: 12.5px;
+  color: var(--ink);
+  word-break: break-word;
+}
+
+/* 企業研究ページ（/interview）。既存語彙で表せない3点だけ足す */
+
+/* 企業行のクリック領域。ボタンだが見た目は行のままにする（.task .t を流用） */
+.row-pick {
+  flex: 1;
+  min-width: 0;
+  display: block;
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.row-pick .t {
+  display: block;
+  min-width: 0;
+}
+
+/* 研究メモ本文（マークダウン）。見出しは 12px 系、本文と箇条書きは 11.5px に収める */
+.md h3 {
+  margin: 9px 0 4px;
+  font-size: 12px;
+  color: var(--brand);
+}
+
+.md h3:first-child {
+  margin-top: 0;
+}
+
+.md h4 {
+  margin: 7px 0 3px;
+  font-size: 11.5px;
+}
+
+.md p {
+  margin: 0 0 5px;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.md ul {
+  margin: 0 0 6px;
+  padding-left: 16px;
+}
+
+.md li {
+  font-size: 11.5px;
+  line-height: 1.55;
+  margin-bottom: 2px;
+}
+
+.md a,
+.src-list a {
+  color: var(--brand);
+}
+
+/* 出典リスト。本文の下に小さく置く */
+.src-list {
+  margin-top: 9px;
+  padding-top: 7px;
+  border-top: 1px solid var(--line);
+}
+
+.src-list h4 {
+  margin: 0 0 3px;
+  font-size: 10px;
+  color: var(--sub);
+}
+
+.src-list ul {
+  margin: 0;
+  padding-left: 15px;
+}
+
+.src-list li {
+  font-size: 10.5px;
+  line-height: 1.5;
+  word-break: break-all;
+}
+/* ===== 選考ステータス管理ボード（/pipeline。FEATURE_PAGE_SPECS.md §7） ===== */
+
+/* カンバンは5列。1画面完結（DESIGN_RULES R1）を守るため、
+   列は横スクロール・列の中は縦スクロールにして、ページには縦スクロールを出さない */
+.kanban-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+}
+
+.kanban {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(150px, 1fr);
+  gap: 8px;
+  overflow-x: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 4px;
+}
+
+.kb-col {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+  background: var(--cls-bg, #f2f4f3);
+  border-radius: 9px;
+  padding: 6px;
+  gap: 5px;
+}
+
+.kb-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sub);
+  white-space: nowrap;
+}
+
+.kb-head .co {
+  margin-left: auto;
+  font-weight: 700;
+}
+
+.kb-list {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: grid;
+  gap: 5px;
+  align-content: start;
+}
+
+.kb-empty {
+  font-size: 10px;
+  padding: 4px 2px;
+}
+
+/* 企業カード。左端の色帯で緊急度を示す（当日 = danger / 3日以内 = warn） */
+.co-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--line);
+  border-radius: 7px;
+  padding: 5px 7px;
+  display: grid;
+  gap: 3px;
+}
+
+.co-card.urgent {
+  border-left-color: var(--danger);
+}
+
+.co-card.soon {
+  border-left-color: var(--warn);
+}
+
+.co-name {
+  font-size: 11.5px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.co-card .tag {
+  justify-self: start;
+}
+
+.co-act {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.co-act select {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  font-size: 9.5px;
+  font-family: inherit;
+  color: var(--sub);
+  background: var(--panel);
+  padding: 1px 2px;
+}
+
+/* スマホ幅では列を狭くしてでも5列の並びを保つ（段階の全体像が見えることを優先） */
+@media (max-width: 760px) {
+  .kanban {
+    grid-auto-columns: minmax(128px, 1fr);
+  }
+}
+
+/* ドラッグ&ドロップ（ブラウザ標準の HTML5 DnD。ライブラリは足さない）。
+   タッチ端末では標準 DnD が効かないため、カード内の select が操作手段として残る */
+.co-card[draggable='true'] {
+  cursor: grab;
+}
+
+.co-card.dragging {
+  opacity: 0.45;
+  cursor: grabbing;
+}
+
+/* ドロップ先の列。落とせる場所が分かるように枠線を出す */
+.kb-col.over {
+  outline: 2px dashed var(--brand);
+  outline-offset: -2px;
+  background: var(--brand-weak);
+}
+
+/* select やボタンの上からドラッグを始めさせない（値を変えたいだけの操作を邪魔しないため） */
+.co-act select,
+.co-act button {
+  cursor: pointer;
+}
+
+/* ===== 企業の発見・マッチング（/companies。FEATURE_PAGE_SPECS.md §12） ===== */
+
+/* 企業カードは2列（§12「企業カード4枚（2×2）」）。件数で切らずカード内スクロールで全件見せる */
+.co-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  padding-top: 4px;
+}
+
+/* .co-card は /pipeline と共有。マッチング側では色帯を使わないので枠線を戻す */
+.co-grid .co-card {
+  border-left-width: 1px;
+  gap: 4px;
+}
+
+.co-grid .co-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.co-grid .co-name .tag {
+  margin-left: auto;
+}
+
+/* マッチ率 90%以上。--ok は tokens.css に定義済み */
+.tag.ok {
+  background: #e6f6ec;
+  color: var(--ok);
+}
+
+/* マッチ理由。合致した条件だけを並べる */
+.why {
+  margin: 0;
+  padding-left: 14px;
+  font-size: 10px;
+  color: var(--sub);
+  display: grid;
+  gap: 1px;
+}
+
+/* 条件フォームの1項目 */
+.fld {
+  display: grid;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sub);
+  padding: 5px 0;
+}
+
+.fld.row {
+  grid-auto-flow: column;
+  justify-content: start;
+  align-items: center;
+  gap: 6px;
+}
+
+.fld input[type='text'],
+.fld input[type='number'],
+.fld input:not([type]) {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 6px 8px;
+  font-size: 12.5px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--panel);
+  font-weight: 400;
+}
+
+.fld input:focus {
+  outline: 2px solid var(--brand-weak);
+  border-color: var(--brand);
+}
+
+/* 就活軸のタグ並び */
+.axes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-weight: 400;
+}
+
+/* スマホ幅ではカードを1列にする（2列だと文字が潰れる） */
+@media (max-width: 760px) {
+  .co-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 受信箱からの企業登録の提案（docs/spec.md §5.11）。条件フォームの下に置く小さな一覧 */
+.sug {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+  display: grid;
+  gap: 4px;
+}
+
+.sug h3 {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--sub);
+}
+
+.sug-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.sug-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ダイアログ内のチェックボックス行（横並びにする） */
+.dlg .chk-row {
+  grid-auto-flow: column;
+  justify-content: start;
+  align-items: center;
+  gap: 6px;
+}

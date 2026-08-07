@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>案03 今日やること集中型 | 就活一元管理ダッシュボード</title>
+<style>
+  :root{--brand:#0f9d8f;--brand-weak:#e3f6f3;--bg:#fbfbf9;--panel:#fff;--ink:#1d2521;
+    --sub:#6f7a75;--line:#e6e9e7;--warn:#e08c00;--danger:#d92d3f;--r:12px}
+  *{box-sizing:border-box;min-height:0;min-width:0}
+  html,body{height:100%;overflow:hidden}
+  body{margin:0;font-family:"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;
+    background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  .page{height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr);overflow:hidden}
+
+  /* ヘッダー：主要3タブ ＋ ハンバーガー */
+  header{background:var(--panel);border-bottom:1px solid var(--line)}
+  .hd{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;align-items:center;gap:18px;height:46px}
+  .logo{font-weight:800;font-size:14px}.logo b{color:var(--brand)}
+  .tabs{display:flex;gap:2px;height:100%}
+  .tabs a{display:flex;align-items:center;padding:0 12px;font-size:12.5px;border-bottom:2.5px solid transparent}
+  .tabs a.on{border-color:var(--brand);color:var(--brand);font-weight:700}
+  .tabs .bd{background:var(--danger);color:#fff;font-size:9.5px;padding:0 5px;border-radius:8px;
+    margin-left:4px;font-weight:700;line-height:14px}
+  .burger{margin-left:auto;background:none;border:1px solid var(--line);border-radius:8px;cursor:pointer;
+    padding:4px 9px;font-size:15px;display:flex;align-items:center;gap:5px}
+  .burger .lb{font-size:11.5px;font-weight:600}
+  .burger:hover{border-color:var(--brand);color:var(--brand)}
+  .avatar{width:27px;height:27px;border-radius:50%;background:var(--brand);color:#fff;
+    display:grid;place-items:center;font-size:11px;flex:none}
+
+  /* パネル：残り9機能 */
+  .scrim{position:fixed;inset:0;background:#1d252166;opacity:0;pointer-events:none;transition:.2s;z-index:30}
+  .panel{position:fixed;top:0;right:0;bottom:0;width:300px;background:var(--panel);z-index:31;
+    transform:translateX(100%);transition:transform .22s;padding:12px;overflow:auto;box-shadow:-8px 0 30px #0001}
+  body.nav-open .scrim{opacity:1;pointer-events:auto}
+  body.nav-open .panel{transform:none}
+  .panel .ph{display:flex;align-items:center;font-weight:800;font-size:13px;padding:0 4px 4px}
+  .panel .x{margin-left:auto;background:none;border:0;font-size:17px;cursor:pointer;color:var(--sub)}
+  .cap{font-size:10px;color:var(--sub);padding:0 4px 6px}
+  .grp{font-size:9.5px;color:var(--sub);letter-spacing:.09em;padding:9px 4px 3px}
+  .item{display:flex;align-items:center;gap:10px;padding:7px 6px;border-radius:8px;font-size:12.5px}
+  .item:hover{background:var(--brand-weak);color:var(--brand)}
+  .ico{width:20px;text-align:center;flex:none}
+  .item .sub{font-size:9.5px;color:var(--sub);display:block;line-height:1.3}
+
+  /* メイン：ヒーロー ＋ 2カラム（画面内で完結） */
+  main{max-width:1000px;width:100%;margin:0 auto;padding:12px 18px;display:grid;
+    grid-template-rows:auto minmax(0,1fr);gap:10px;overflow:hidden}
+  .hero{background:linear-gradient(135deg,#0f9d8f,#13b8a5);color:#fff;border-radius:15px;padding:13px 18px;
+    display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .hero .lead{flex:1;min-width:210px}
+  .hero .d{font-size:10.5px;opacity:.85}
+  .hero h1{margin:1px 0 0;font-size:17px}
+  .hero .sum{display:flex;gap:18px}
+  .hero .sum div span{display:block;font-size:10px;opacity:.85}
+  .hero .sum div b{font-size:17px}
+
+  .two{display:grid;grid-template-columns:1.1fr 1fr;gap:10px;overflow:hidden}
+  .col{display:grid;gap:10px;grid-template-rows:1.35fr 1fr;overflow:hidden}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+    display:flex;flex-direction:column;overflow:hidden}
+  .card > h2{margin:0;padding:8px 13px;font-size:12px;border-bottom:1px solid var(--line);display:flex;gap:7px}
+  .card > h2 .more{margin-left:auto;font-size:10.5px;color:var(--brand);font-weight:600}
+  .body{padding:2px 13px 8px;overflow:hidden}
+  .co{font-size:10px;color:var(--sub)}
+  .task{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line)}
+  .task:last-of-type{border-bottom:0}
+  .task .chk{width:15px;height:15px;border:1.6px solid #c4cec9;border-radius:5px;flex:none}
+  .task.done .chk{background:var(--brand);border-color:var(--brand)}
+  .task.done .t{text-decoration:line-through;color:var(--sub)}
+  .task .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tag{font-size:9.5px;padding:1px 6px;border-radius:4px;background:var(--brand-weak);color:#0b7a6f;
+    font-weight:700;white-space:nowrap}
+  .tag.d{background:#fde3e6;color:#9f1239}.tag.w{background:#fdf0d5;color:#8a5a00}
+  .plus{display:block;font-size:10.5px;color:var(--brand);font-weight:600;padding-top:4px}
+  .tl{padding-left:44px;position:relative}
+  .slot{position:relative;padding:5px 0}
+  .hh{position:absolute;left:-44px;top:7px;font-size:10.5px;color:var(--sub);font-weight:700;width:38px}
+  .ev{border-left:3px solid var(--brand);background:var(--brand-weak);border-radius:0 6px 6px 0;padding:4px 9px;font-size:11.5px}
+  .ev.cls{border-color:#9aa5a1;background:#f2f4f3}
+  .ev.free{border-color:transparent;color:var(--sub);font-size:10.5px;
+    background:repeating-linear-gradient(45deg,#fafbfa,#fafbfa 6px,#f2f4f3 6px,#f2f4f3 12px)}
+
+  @media (max-width:760px){
+    .hd{gap:8px;height:42px;padding:0 11px}.tabs a{padding:0 8px;font-size:11.5px}.burger .lb{display:none}
+    main{padding:9px 11px;gap:8px}
+    .hero{padding:10px 13px;gap:10px}.hero h1{font-size:14px}.hero .sum{gap:13px}.hero .sum div b{font-size:15px}
+    .hero .sum div:nth-child(n+3){display:none}
+    .two{grid-template-columns:1fr;grid-template-rows:1.2fr 1fr}
+    .col{grid-template-rows:1fr}.col .card:nth-child(2){display:none}
+    .task:nth-of-type(n+4){display:none}.slot:nth-of-type(n+4){display:none}
+  }
+  @media (max-height:640px){.task:nth-of-type(n+4){display:none}.slot:nth-of-type(n+5){display:none}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <div class="hd">
+    <div class="logo">Shukatsu<b>Hub</b></div>
+    <nav class="tabs">
+      <a class="on" href="#">今日</a>
+      <a href="#calendar">カレンダー</a>
+      <a href="#inbox">受信箱<span class="bd">4</span></a>
+    </nav>
+    <button class="burger" onclick="document.body.classList.add('nav-open')">☰<span class="lb">機能</span></button>
+    <div class="avatar">佐</div>
+  </div>
+</header>
+
+<div class="scrim" onclick="document.body.classList.remove('nav-open')"></div>
+<aside class="panel">
+  <div class="ph">すべての機能<button class="x" onclick="document.body.classList.remove('nav-open')">✕</button></div>
+  <div class="cap">上部タブの3つ以外はここから</div>
+  <div class="grp">進行管理</div>
+  <a class="item" href="#tasks"><span class="ico">✓</span><div>タスク・締め切り<span class="sub">今日 5件・期限切れ 1件</span></div></a>
+  <a class="item" href="#pipeline"><span class="ico">▤</span><div>選考ステータス管理<span class="sub">選考中 18社</span></div></a>
+  <a class="item" href="#notifications"><span class="ico">🔔</span><div>通知<span class="sub">未読 3件</span></div></a>
+  <div class="grp">メール</div>
+  <a class="item" href="#mail-filter"><span class="ico">⚙</span><div>メール自動振り分け<span class="sub">ルール 6件・今週 98通を分類</span></div></a>
+  <div class="grp">準備・分析</div>
+  <a class="item" href="#profile"><span class="ico">◉</span><div>プロフィール・自己分析<span class="sub">充実度 68%</span></div></a>
+  <a class="item" href="#qa"><span class="ico">？</span><div>想定問答<span class="sub">アルファテック 75%</span></div></a>
+  <a class="item" href="#interview"><span class="ico">◎</span><div>面接対策収集<span class="sub">新着 5件</span></div></a>
+  <a class="item" href="#knowledge"><span class="ico">▧</span><div>ナレッジ蓄積<span class="sub">メモ 34件</span></div></a>
+  <a class="item" href="#companies"><span class="ico">◇</span><div>企業の発見・マッチング<span class="sub">おすすめ 12社</span></div></a>
+</aside>
+
+<main>
+  <section class="hero">
+    <div class="lead">
+      <div class="d">2026年7月30日（木）</div>
+      <h1>今日やることは 5件。まず ES 提出から。</h1>
+    </div>
+    <div class="sum">
+      <div><span>研究にあてられる時間</span><b>3.5h</b></div>
+      <div><span>就活タスク</span><b>5件</b></div>
+      <div><span>予定</span><b>3件</b></div>
+      <div><span>要対応メール</span><b>4通</b></div>
+    </div>
+  </section>
+
+  <div class="two">
+    <div class="col">
+      <div class="card">
+        <h2>✓ 今日やること<a class="more" href="#tasks">すべてのタスク →</a></h2>
+        <div class="body">
+          <div class="task"><span class="chk"></span><div class="t">アルファテック ES 提出<div class="co">締切 本日 23:59</div></div><span class="tag d">最優先</span></div>
+          <div class="task"><span class="chk"></span><div class="t">デルタ商事 面接日程を回答<div class="co">明日まで／候補3つ受信済</div></div><span class="tag w">要返信</span></div>
+          <div class="task"><span class="chk"></span><div class="t">ガンマ工業 想定問答を確認<div class="co">面接 8/3</div></div><span class="tag">準備</span></div>
+          <div class="task done"><span class="chk"></span><div class="t">スカウト3件を仕分け<div class="co">完了 09:12</div></div></div>
+          <a class="plus" href="#tasks">＋ 他 1件</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>✉ 今日返すべきメール<a class="more" href="#inbox">受信箱 →</a></h2>
+        <div class="body">
+          <div class="task"><span class="tag d">面接日程</span><div class="t">一次面接 日程調整のご連絡<div class="co">アルファテック・14:20</div></div></div>
+          <div class="task"><span class="tag w">要返信</span><div class="t">ES提出期限のリマインド<div class="co">ベータ社・11:05</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>▣ 今日のタイムライン<a class="more" href="#calendar">カレンダー →</a></h2>
+      <div class="body">
+        <div class="tl">
+          <div class="slot"><span class="hh">10:30</span><div class="ev cls">研究室ゼミ<div class="co">B棟 402・〜12:00</div></div></div>
+          <div class="slot"><span class="hh">13:00</span><div class="ev free">空き 2h ― ES 提出をここに</div></div>
+          <div class="slot"><span class="hh">15:00</span><div class="ev">アルファテック 一次面接<div class="co">Zoom・〜16:00</div></div></div>
+          <div class="slot"><span class="hh">18:00</span><div class="ev cls">課題レポート作成<div class="co">〜20:00</div></div></div>
+          <div class="slot"><span class="hh">明日</span><div class="ev">10:00 ベータ社 説明会</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+</body>
+</html>

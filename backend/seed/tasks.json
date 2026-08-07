@@ -1,0 +1,56 @@
+[
+  {
+    "title": "デルタ商事 面接日程を回答",
+    "short_label": "日程回答",
+    "due_at": "2026-07-30T12:00:00",
+    "estimate_min": 15,
+    "is_done": false,
+    "badge": "要返信",
+    "company_domain": "delta-corp.co.jp"
+  },
+  {
+    "title": "ベータ社 説明会の予習",
+    "short_label": "説明会予習",
+    "due_at": "2026-07-30T17:00:00",
+    "estimate_min": 30,
+    "is_done": false,
+    "badge": "準備",
+    "company_domain": "beta-inc.jp"
+  },
+  {
+    "title": "ガンマ工業 想定問答を確認",
+    "short_label": "想定問答",
+    "due_at": "2026-07-30T21:00:00",
+    "estimate_min": 45,
+    "is_done": false,
+    "badge": "準備",
+    "company_domain": "gamma-kogyo.jp"
+  },
+  {
+    "title": "アルファテック ES 提出",
+    "short_label": "ES提出",
+    "due_at": "2026-07-30T23:59:00",
+    "estimate_min": 90,
+    "is_done": false,
+    "badge": "最優先",
+    "company_domain": "alphatech.co.jp"
+  },
+  {
+    "title": "アルファテック マイページを更新",
+    "short_label": "マイページ更新",
+    "due_at": "2026-07-30T23:59:00",
+    "estimate_min": 30,
+    "is_done": false,
+    "badge": null,
+    "company_domain": "alphatech.co.jp"
+  },
+  {
+    "title": "スカウト3件を仕分け",
+    "short_label": "スカウト仕分け",
+    "due_at": "2026-07-30T09:12:00",
+    "estimate_min": 15,
+    "is_done": true,
+    "badge": null,
+    "company_domain": null
+  }
+]

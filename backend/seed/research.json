@@ -1,0 +1,51 @@
+{
+  "reports": [
+    {
+      "company_domain": "alphatech.co.jp",
+      "collected_at": "2026-07-28T10:00:00",
+      "source_urls": ["https://example.com/alphatech/company/", "https://example.com/alphatech/recruit/"],
+      "markdown": "## 事業・製品\n- 物流倉庫向けの**画像認識システム**が売上の柱。入出庫の照合をカメラ映像で行う [出典](https://example.com/alphatech/company/)\n- 顧客は法人のみ。導入は国内の物流センターが中心 [出典](https://example.com/alphatech/company/)\n\n## 求める人材\n- 「指示を待たず自分で課題を決められる人」という記述がある [出典](https://example.com/alphatech/recruit/)\n- 技術職は研究内容のプレゼンが選考に含まれる [出典](https://example.com/alphatech/recruit/)\n\n## 働き方・制度\n- 入社1年目から週2日のリモート勤務が可能。勤務地は東京 [出典](https://example.com/alphatech/recruit/)\n- 学会参加の費用補助あり [出典](https://example.com/alphatech/recruit/)\n\n## 最近の動き\n- 2026年春に物流大手との共同実験を開始 [出典](https://example.com/alphatech/company/)\n"
+    },
+    {
+      "company_domain": "gamma-kogyo.jp",
+      "collected_at": "2026-07-27T19:30:00",
+      "source_urls": ["https://example.com/gamma-kogyo/company/"],
+      "markdown": "## 事業・製品\n- 製造装置の本体と**制御ソフトの両方を内製**している [出典](https://example.com/gamma-kogyo/company/)\n- 主力は半導体向けの搬送装置 [出典](https://example.com/gamma-kogyo/company/)\n\n## 求める人材\n- 現場に足を運ぶ姿勢を重視する記述がある [出典](https://example.com/gamma-kogyo/company/)\n\n## 働き方・制度\n- 公開ページからは分かりませんでした（面接で確認する）\n\n## 最近の動き\n- 2027年に新工場の稼働を予定 [出典](https://example.com/gamma-kogyo/company/)\n"
+    }
+  ],
+  "checks": [
+    {
+      "company_domain": "alphatech.co.jp",
+      "label": "事業の柱を3つ言えるようにする",
+      "is_done": true
+    },
+    {
+      "company_domain": "alphatech.co.jp",
+      "label": "求める人材と自分の強みの重なりを1文にする",
+      "is_done": false
+    },
+    {
+      "company_domain": "alphatech.co.jp",
+      "label": "研究テーマが業務のどこに繋がるかを整理する",
+      "is_done": false
+    },
+    {
+      "company_domain": "gamma-kogyo.jp",
+      "label": "「なぜ製造業か」を自分の言葉で言えるようにする",
+      "is_done": false
+    },
+    {
+      "company_domain": "gamma-kogyo.jp",
+      "label": "働き方・制度を逆質問として用意する",
+      "is_done": false
+    }
+  ],
+  "template": {
+    "markdown": "## 事業・製品\n- 何で売上を立てているかを3つに整理する（会社案内・事業紹介ページ）\n- 顧客が法人か消費者かを確かめる。語る強みの選び方が変わる\n\n## 求める人材\n- 採用ページの人材像の言葉をそのまま書き写し、自分の経験を対応させる\n- 応募する職種の選考フローだけを読む（職種で問われることが違う）\n\n## 働き方・制度\n- 勤務地・初期配属・異動の仕組みを調べる。分からなければ逆質問にまわす\n- 学会参加や資格取得の支援制度があるかを確かめる\n\n## 最近の動き\n- 直近1年のニュースリリースを1件読み、志望動機に結び付ける\n",
+    "checks": [
+      "事業の柱を3つ言えるようにする",
+      "求める人材と自分の強みの重なりを1文にする",
+      "逆質問を3つ用意する"
+    ]
+  }
+}
