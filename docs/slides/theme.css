@@ -1,0 +1,418 @@
+/* @theme shukatsuhub */
+
+/*
+ * 中間発表スライドのテーマ。
+ * 色は 03-today-focus/index.html の :root と揃えている（画面と資料のトーンを一致させる）。
+ * 使い方: npx @marp-team/marp-cli docs/slides/midterm.md --pdf
+ */
+
+@import 'default';
+
+:root {
+  --brand: #0f9d8f;
+  --brand-weak: #e3f6f3;
+  --bg: #fbfbf9;
+  --panel: #ffffff;
+  --ink: #1d2521;
+  --sub: #6f7a75;
+  --line: #e6e9e7;
+  --warn: #e08c00;
+  --danger: #d92d3f;
+  --muted: #9aa5a1;
+  --muted-weak: #f2f4f3;
+
+  font-family: 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', 'Meiryo', sans-serif;
+}
+
+section {
+  background: var(--bg);
+  color: var(--ink);
+  padding: 48px 56px;
+  font-size: 28px;
+  line-height: 1.6;
+  justify-content: flex-start;
+}
+
+section::after {
+  color: var(--sub);
+  font-size: 16px;
+}
+
+h1 {
+  color: var(--ink);
+  font-size: 46px;
+  margin: 0 0 8px;
+  border-bottom: 3px solid var(--brand);
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: var(--brand);
+  font-size: 36px;
+  margin: 0 0 12px;
+}
+
+h3 {
+  font-size: 28px;
+  margin: 18px 0 6px;
+}
+
+strong {
+  color: #0b7a6f;
+}
+
+a {
+  color: var(--brand);
+}
+
+ul,
+ol {
+  margin: 6px 0;
+}
+
+li {
+  margin: 6px 0;
+}
+
+blockquote {
+  border-left: 5px solid var(--brand);
+  background: var(--brand-weak);
+  margin: 12px 0;
+  padding: 12px 18px;
+  font-size: 29px;
+  color: #0b6a61;
+}
+
+code {
+  background: var(--muted-weak);
+  color: #414b47;
+  font-size: 0.9em;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+pre {
+  background: #16211f;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+/* ディレクトリ構成を白地＋枠線で見せる（暗い pre だと投影で潰れる）。
+   <div class="tree"> の中に置いた pre に効く */
+.tree pre {
+  background: #f4f8f7;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--brand);
+  border-radius: 8px;
+  font-size: 17px;
+  line-height: 1.5;
+  padding: 10px 12px;
+  margin: 6px 0;
+}
+
+.tree pre code {
+  background: none;
+  color: #24302d;
+  font-size: 1em;
+  padding: 0;
+}
+
+.tree h3 {
+  color: var(--brand);
+  font-size: 20px;
+  margin: 0 0 2px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+th {
+  background: var(--brand);
+  color: #fff;
+  text-align: left;
+  padding: 8px 12px;
+}
+
+td {
+  border-bottom: 1px solid var(--line);
+  padding: 8px 12px;
+  background: var(--panel);
+}
+
+/* ===== タイトルスライド（<!-- _class: title --> で指定）===== */
+section.title {
+  background: linear-gradient(135deg, #0f9d8f, #13b8a5);
+  color: #fff;
+  justify-content: center;
+}
+
+section.title h1 {
+  color: #fff;
+  border: 0;
+  font-size: 58px;
+  margin-bottom: 4px;
+}
+
+section.title h2 {
+  color: #ffffffdd;
+  font-weight: 400;
+  font-size: 30px;
+}
+
+section.title p {
+  color: #ffffffcc;
+  font-size: 24px;
+}
+
+/* ティール地の上では、既定の文字色（濃いグレー）と強調色（濃いティール）が沈んで読めない。
+   箇条書き・太字・表を明示的に白系にする */
+section.title li {
+  color: #fff;
+  font-size: 26px;
+}
+
+section.title strong {
+  color: #fff;
+  font-weight: 700;
+  /* 白地の太字だけでは差が出ないので、うすい下線で強調を残す */
+  border-bottom: 2px solid #ffffff66;
+}
+
+section.title ul {
+  text-align: left;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+section.title a {
+  color: #fff;
+}
+
+/* 表紙に完成画面のスクリーンショットを載せる版（<!-- _class: title lead-shot ! --> ）。
+   何を作ったのかを1枚目で見せる */
+section.title.lead-shot {
+  justify-content: flex-start;
+  padding: 46px 60px 30px;
+}
+
+section.title.lead-shot h1 {
+  font-size: 40px;
+  margin-bottom: 2px;
+}
+
+section.title.lead-shot p {
+  font-size: 19px;
+  margin: 2px 0;
+}
+
+section.title.lead-shot img {
+  display: block;
+  margin: 14px auto 10px;
+  border-radius: 10px;
+  box-shadow: 0 12px 34px #00000040;
+}
+
+/* ===== 章の区切り（<!-- _class: section --> ）===== */
+section.section {
+  background: var(--ink);
+  color: #fff;
+  justify-content: center;
+}
+
+section.section h1 {
+  color: #fff;
+  border: 0;
+  font-size: 54px;
+}
+
+section.section p {
+  color: #ffffffaa;
+}
+
+/* ===== 2カラム（<div class="cols"> で囲む）===== */
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.cols.wide-left {
+  grid-template-columns: 1.4fr 1fr;
+}
+
+/* ===== 数値タイル（<div class="kpis"> の中に <div><b>18</b><span>選考中</span></div>）===== */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 14px 0;
+}
+
+.kpis > div {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 12px;
+  text-align: center;
+}
+
+.kpis b {
+  display: block;
+  color: var(--brand);
+  font-size: 46px;
+  line-height: 1.1;
+}
+
+.kpis span {
+  font-size: 19px;
+  color: var(--sub);
+}
+
+/* ===== カード（<div class="card"> ）===== */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: var(--brand);
+}
+
+/* ===== 課題→解決の矢印（<div class="flow"> ）===== */
+.flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.flow .arrow {
+  color: var(--brand);
+  font-size: 36px;
+}
+
+.flow .pain {
+  background: #fdeaec;
+  border-left: 5px solid var(--danger);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 25px;
+}
+
+.flow .fix {
+  background: var(--brand-weak);
+  border-left: 5px solid var(--brand);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 25px;
+}
+
+/* 4ステップ以上の流れを1行で見せる帯。.flow は3枠固定なので別クラスにする */
+.chain {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.chain > div {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: var(--brand-weak);
+  border-left: 5px solid var(--brand);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 19px;
+  line-height: 1.4;
+}
+
+.chain > .pain {
+  background: #fdeaec;
+  border-left-color: var(--danger);
+}
+
+.chain > .arrow {
+  flex: 0 0 auto;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--brand);
+  font-size: 26px;
+}
+
+/* ===== ラベル ===== */
+.tag {
+  display: inline-block;
+  background: var(--brand-weak);
+  color: #0b7a6f;
+  font-size: 19px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 6px;
+}
+
+.tag.done {
+  background: #dcf5e6;
+  color: #12703f;
+}
+
+.tag.todo {
+  background: var(--muted-weak);
+  color: #55605c;
+}
+
+.tag.warn {
+  background: #fdf0d5;
+  color: #8a5a00;
+}
+
+/* 補足行 */
+.note {
+  color: var(--sub);
+  font-size: 21px;
+  margin-top: 10px;
+}
+
+/* 行数の多い表を1枚に収めるスライド（<!-- _class: dense -->）。文字と余白だけを詰める */
+section.dense table {
+  font-size: 20px;
+  margin: 6px 0;
+}
+
+section.dense th,
+section.dense td {
+  padding: 4px 10px;
+}
+
+section.dense h2 {
+  margin-bottom: 6px;
+}
+
+/* スクリーンショットと並べる2カラムは、右カラムの折り返しが増えるので少し詰める */
+.cols > div > ul {
+  font-size: 25px;
+  line-height: 1.55;
+}
+
+.cols > div > ul > li {
+  margin: 6px 0;
+}
+
+/* 1枚で見せるスクリーンショットは中央に置く。
+   直下の段落だけを対象にするので、2カラム（.cols の中）の画像はこの指定を受けない */
+section > p > img {
+  display: block;
+  margin: 4px auto 8px;
+  border-radius: 8px;
+  box-shadow: 0 8px 22px #00000026;
+}
